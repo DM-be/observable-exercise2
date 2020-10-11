@@ -58,7 +58,9 @@ export class CounterComponent implements OnInit, OnDestroy {
     return subscription;
   }
 
+  // add a pipeable operator, logging the value of the count variable but not doing anything
 
+  
 
 
 }
