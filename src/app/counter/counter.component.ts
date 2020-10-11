@@ -31,7 +31,7 @@ export class CounterComponent implements OnInit, OnDestroy {
   }
 
 
-
+  // recreate the counter exercise using a creation operator
   private observeIncrementButtonClick(): Subscription {
 
     const observer: Observer = {
