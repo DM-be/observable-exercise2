@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Observable, Subscription } from "rxjs";
+import { fromEvent, Observable, Subscription } from "rxjs";
 
 interface Observer {
   next: (value?: any) => void;
@@ -36,14 +36,8 @@ export class CounterComponent implements OnInit, OnDestroy {
   // usually only partial observers are used
   // rewrite this without an explicit observer object.
   private observeIncrementButtonClick(): Subscription {
-
-    const observer: Observer = {
-      next: () => this.count++
-    };
-    const observable = new Observable(subscriber => {
-      this.incrementButton.onclick = () => subscriber.next();
-    });
-    const subscription = observable.subscribe(observer);
+    const observable = fromEvent(this.incrementButton, 'click');
+    const subscription = observable.subscribe(() => this.count++);
     return subscription;
   }
 
@@ -60,7 +54,7 @@ export class CounterComponent implements OnInit, OnDestroy {
 
   // add a pipeable operator, logging the value of the count variable but not doing anything
 
-  
+
 
 
 }
