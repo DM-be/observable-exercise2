@@ -42,13 +42,8 @@ export class CounterComponent implements OnInit, OnDestroy {
   }
 
   private observeDecrementButtonClick(): Subscription {
-    const observer: Observer = {
-      next: () => this.count--
-    };
-    const observable = new Observable(subscriber => {
-      this.decrementButton.onclick = () => subscriber.next();
-    });
-    const subscription = observable.subscribe();
+    const observable = fromEvent(this.decrementButton, 'click');
+    const subscription = observable.subscribe(() => this.count--);
     return subscription;
   }
 
