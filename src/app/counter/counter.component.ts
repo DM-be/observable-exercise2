@@ -21,6 +21,7 @@ export class CounterComponent implements OnInit, OnDestroy {
   constructor() {}
   ngOnDestroy(): void {
     this.incrementButtonClickSubscription.unsubscribe();
+    this.decrementButtonClickSubscription.unsubscribe();
   }
 
   ngOnInit() {
@@ -29,6 +30,11 @@ export class CounterComponent implements OnInit, OnDestroy {
     this.incrementButtonClickSubscription = this.observeIncrementButtonClick();
     this.decrementButtonClickSubscription = this.observeDecrementButtonClick();
   }
+
+    private observableFromButtonClickEvent(button: HTMLButtonElement): Observable<Event> {
+    return fromEvent(button, 'click');
+  }
+
 
 
   // recreate the counter exercise using a creation operator
@@ -42,8 +48,10 @@ export class CounterComponent implements OnInit, OnDestroy {
   // keep track of the button clicks happening in the 1 second interval, console log it, don't use a global variable
   
   private observeIncrementButtonClick(): Subscription {
-    const observable = fromEvent(this.incrementButton, 'click');
-    const subscription = observable.subscribe(() => this.count++);
+    const observable = this.observableFromButtonClickEvent(this.incrementButton);
+    const subscription = observable.pipe(
+      
+    ).subscribe()
     return subscription;
   }
 
