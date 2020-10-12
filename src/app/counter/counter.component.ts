@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { fromEvent, Observable, Subscription } from "rxjs";
-import { scan } from "rxjs/operators";
+import { scan, tap,  throttleTime } from "rxjs/operators";
 
 interface Observer {
   next: (value?: any) => void;
@@ -49,10 +49,12 @@ export class CounterComponent implements OnInit, OnDestroy {
   // keep track of the button clicks happening in the 1 second interval, console log it, don't use a global variable  
 
   private observeIncrementButtonClick(): Subscription {
-    const observable = this.observableFromButtonClickEvent(this.incrementButton);
+     const observable = this.observableFromButtonClickEvent(this.incrementButton);
     const subscription = observable.pipe(
+      // implement the scan operator
+      throttleTime(1000),
       tap(() => console.log(this.count))
-    ).subscribe()
+    ).subscribe(() => this.count++)
     return subscription;
   }
 
