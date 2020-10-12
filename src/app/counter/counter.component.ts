@@ -21,6 +21,7 @@ export class CounterComponent implements OnInit, OnDestroy {
   constructor() {}
   ngOnDestroy(): void {
     this.incrementButtonClickSubscription.unsubscribe();
+    this.decrementButtonClickSubscription.unsubscribe();
   }
 
   ngOnInit() {
