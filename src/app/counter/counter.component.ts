@@ -42,7 +42,7 @@ export class CounterComponent implements OnInit, OnDestroy {
   }
 
 
-  
+   // recreate the counter exercise using a creation operator
   // .subscribe() also accepts an anonymous function, the first parameter is the    next value, the next is error, and the last is complete.
   // usually only partial observers are used
   // rewrite this without an explicit observer object.
