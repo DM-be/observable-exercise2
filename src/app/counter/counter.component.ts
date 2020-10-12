@@ -52,6 +52,9 @@ export class CounterComponent implements OnInit, OnDestroy {
     return subscription;
   }
 
+ // also prevent button spamming
+  // this time, create a new object containing the count variabele,  the event x and y coordinates and log it in the observer
+  // (decrementing count is still the role of the observer)
   private observeDecrementButtonClick(): Subscription {
     const observer: Observer = {
       next: () => this.count--
@@ -59,7 +62,7 @@ export class CounterComponent implements OnInit, OnDestroy {
     const observable = new Observable(subscriber => {
       this.decrementButton.onclick = () => subscriber.next();
     });
-    const subscription = observable.subscribe();
+    const subscription = observable.subscribe(observer);
     return subscription;
   }
 
