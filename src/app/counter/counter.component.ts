@@ -54,11 +54,10 @@ export class CounterComponent implements OnInit, OnDestroy {
     const observable = new Observable(subscriber => {
       this.decrementButton.onclick = () => subscriber.next();
     });
-    const subscription = observable.subscribe();
+    const subscription = observable.subscribe(observer);
     return subscription;
   }
 
-  // add a pipeable operator, logging the value of the count variable but not doing anything
 
 
 
