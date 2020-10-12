@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { fromEvent, Observable, Subscription } from "rxjs";
-import { tap, throttleTime } from "rxjs/operators";
+import { map, scan, tap, throttleTime } from "rxjs/operators";
 
 interface Observer {
   next: (value?: any) => void;
@@ -46,18 +46,28 @@ export class CounterComponent implements OnInit, OnDestroy {
   // after implementing, adjust the incrementButton to the following behavior:
   // 1: prevent button spamming, don't allow more than one event per second through the stream 
   // 2: log the value of the count variable, continue the chain
-  // 3: 
+  // 3: keep track of the button clicks happening in the 1 second interval as well, console log it, don't use a global variable.
+
+
 
   private observeIncrementButtonClick(): Subscription {
     const observable = this.observableFromButtonClickEvent(this.incrementButton);
-    const subscription = observable.pipe(
+    observable.pipe(
+      scan((numberOfClicks: number) => {
+        console.log(numberOfClicks);
+        return numberOfClicks + 1;
+      }, 0),
       throttleTime(1000),
+      map((event => event)),
       tap(() => console.log(this.count))
     ).subscribe(() => this.count++)
-   // const subscription = observable.subscribe(() => this.count++);
+    const subscription = observable.subscribe(() => this.count++);
     return subscription;
   }
 
+
+  // also prevent button spamming
+  // this time, create a new object containing the count variabele, the event x and y coordinates and log it in the end of the chain.
 
   private observeDecrementButtonClick(): Subscription {
     const observable = this.observableFromButtonClickEvent(this.decrementButton);
