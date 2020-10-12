@@ -32,9 +32,15 @@ export class CounterComponent implements OnInit, OnDestroy {
 
 
   // recreate the counter exercise using a creation operator
-  // .subscribe() also accepts an anonymous function, the first parameter is the next value, the next is error, and the last is complete.
+  // .subscribe() also accepts an anonymous function, the first parameter is the    next value, the next is error, and the last is complete.
   // usually only partial observers are used
   // rewrite this without an explicit observer object.
+
+  // after implementing, adjust the incrementButton to the following behavior:
+  // prevent button spamming, don't allow more than one event per second through the stream 
+  // log the value of the count variable with an operator (not in subscribe)
+  // keep track of the button clicks happening in the 1 second interval, console log it, don't use a global variable
+  
   private observeIncrementButtonClick(): Subscription {
     const observable = fromEvent(this.incrementButton, 'click');
     const subscription = observable.subscribe(() => this.count++);
