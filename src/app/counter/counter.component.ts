@@ -31,7 +31,8 @@ export class CounterComponent implements OnInit, OnDestroy {
     this.decrementButtonClickSubscription = this.observeDecrementButtonClick();
   }
 
-  // recreate the counter exercise using a creation operator
+  // recreate the counter exercise using a creation operator --> use 
+
   // .subscribe() also accepts an anonymous object, the first parameter is the    next function, the next is the error function, and the last function is complete.
   // usually only partial observers are used
   // rewrite this without an explicit observer object.
