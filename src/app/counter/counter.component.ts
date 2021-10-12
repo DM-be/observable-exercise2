@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Observable, of, Subscription } from "rxjs";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, of, Subscription } from 'rxjs';
 
 interface Observer {
   next: (value?: any) => void;
@@ -7,9 +7,9 @@ interface Observer {
   complete?: () => void;
 }
 @Component({
-  selector: "app-counter",
-  templateUrl: "./counter.component.html",
-  styleUrls: ["./counter.component.css"]
+  selector: 'app-counter',
+  templateUrl: './counter.component.html',
+  styleUrls: ['./counter.component.css'],
 })
 export class CounterComponent implements OnInit, OnDestroy {
   public count: number = 0;
@@ -25,8 +25,8 @@ export class CounterComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.incrementButton = document.querySelector("#incrementBtn");
-    this.decrementButton = document.querySelector("#decrementBtn");
+    this.incrementButton = document.querySelector('#incrementBtn');
+    this.decrementButton = document.querySelector('#decrementBtn');
     this.incrementButtonClickSubscription = this.observeIncrementButtonClick();
     this.decrementButtonClickSubscription = this.observeDecrementButtonClick();
   }
@@ -39,7 +39,7 @@ export class CounterComponent implements OnInit, OnDestroy {
     return undefined;
   }
 
-  // .subscribe() also accepts an anonymous object, the first parameter is the    next function, the next is the error function, and the last function is complete.
+  // .subscribe() also accepts a list of functionst, the first  is the next function, the next is the error function, and the last function is complete.
   // usually only partial observers are used
   // rewrite this without an explicit observer object.
 
@@ -50,9 +50,9 @@ export class CounterComponent implements OnInit, OnDestroy {
 
   private observeIncrementButtonClick(): Subscription {
     const observer: Observer = {
-      next: () => this.count++
+      next: () => this.count++,
     };
-    const observable = new Observable(subscriber => {
+    const observable = new Observable((subscriber) => {
       this.incrementButton.onclick = () => subscriber.next();
     });
     const subscription = observable.subscribe(observer);
@@ -64,9 +64,9 @@ export class CounterComponent implements OnInit, OnDestroy {
   // (decrementing count is still the role of the observer)
   private observeDecrementButtonClick(): Subscription {
     const observer: Observer = {
-      next: () => this.count--
+      next: () => this.count--,
     };
-    const observable = new Observable(subscriber => {
+    const observable = new Observable((subscriber) => {
       this.decrementButton.onclick = () => subscriber.next();
     });
     const subscription = observable.subscribe(observer);
